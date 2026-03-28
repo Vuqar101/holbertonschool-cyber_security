@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Display PID and name of processes containing bash
+for p in /proc/[0-9]*; do
+    [ -r "$p/comm" ] || continue
+    n=$(cat "$p/comm")
+    case "$n" in
+        *bash*) echo "${p##*/} $n" ;;
+    esac
+done
