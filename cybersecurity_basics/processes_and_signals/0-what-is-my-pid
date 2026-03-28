@@ -1,2 +1,3 @@
 #!/usr/bin/env bash
+# this script help us to know current script's id.
 echo $$
