@@ -1,0 +1,4 @@
+#!/bin/bash
+# This script displays lines containing the 'bash' word using ps
+# shellcheck disable=SC2009
+ps -auxf | grep bash
