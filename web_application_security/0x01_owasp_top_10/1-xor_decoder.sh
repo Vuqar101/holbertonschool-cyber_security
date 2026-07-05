@@ -1,16 +1,18 @@
 #!/bin/bash
 
-# Check if an argument was provided
+# Əgər arqument verilməyibsə çıxış et
 if [ -z "$1" ]; then
-    echo "Usage: $0 {xor}HASH"
+    echo "İstifadə qaydası: $0 {xor}KzosKw=="
     exit 1
 fi
 
-# Remove the {xor} prefix if present
-encoded_string="${1#\{xor\}}"
+# Başlıqdakı {xor} hissəsini təmizləyirik
+encoded_str="${1#\{xor\}}"
 
-# 1. Decode from Base64
-# 2. Use 'tr' or a loop to XOR each byte with '_' (95)
-# Using perl for a clean one-liner XOR operation
-echo "$encoded_string" | base64 -d | perl -pe '$_ ^= "_" x length'
-echo "" # Add a newline to match your output example
+# Base64 ilə deşifrə edib, hər baytı 0x5F (_) ilə XOR edirik
+echo -n "$encoded_str" | base64 -d 2>/dev/null | python3 -c '
+import sys
+data = sys.stdin.buffer.read()
+decoded = "".join(chr(b ^ 0x5F) for b in data)
+print(decoded)
+'
